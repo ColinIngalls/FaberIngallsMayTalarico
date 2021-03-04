@@ -1,0 +1,301 @@
+\documentclass[letter,11pt]{amsart}
+\usepackage[latin1]{inputenc}   
+\usepackage{amssymb,amsmath,amsthm,mathrsfs}
+\usepackage{graphicx,mathpazo}
+\usepackage[all]{xy}
+\usepackage[usenames,dvipsnames]{color}
+%\usepackage{ulem}   %fuer durchstreichen! 
+
+
+\usepackage[notref,notcite]{showkeys}
+\usepackage[colorlinks=true,pagebackref]{hyperref}
+\usepackage{enumerate}
+
+%--------------Layout------------
+\parindent 0mm
+
+
+%%%% Decrease White Space %%%%%%%%%
+\addtolength{\textwidth}{2.4cm}
+\addtolength{\textheight}{2cm}
+\addtolength{\topmargin}{-2cm}
+\topmargin -1.3cm
+\addtolength{\evensidemargin}{-1.2cm}
+\addtolength{\oddsidemargin}{-1.2cm}
+\setlength{\parindent}{0cm}
+\addtolength{\parskip}{0.15cm}
+
+
+
+%%%%%%%%%  tikz commands, copied  from IW
+ \usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,positioning,shapes.geometric,shapes.misc,decorations.markings,decorations.fractals,calc,patterns}
+
+\tikzset{>=stealth',
+     cvertex/.style={circle,draw=black,inner sep=1pt,outer sep=3pt},
+     vertex/.style={circle,fill=black,inner sep=1pt,outer sep=3pt},
+     star/.style={circle,fill=yellow,inner sep=0.75pt,outer sep=0.75pt},
+     tvertex/.style={inner sep=1pt,font=\criptsize},
+     gap/.style={inner sep=0.5pt,fill=white}}
+
+\newcommand{\arrowrl}[3][20]
+{
+\hspace{-5pt}
+\begin{tikzpicture}
+\node (A) at (0,0) {};
+\node (B) at (1,0) {};
+\draw[->] ($(A)+(0,0.2)$) -- node [above] {$\scriptstyle f^*$} ($(B)+(0,0.2)$);
+\draw [->] ($(B)+(0,0.2)$) -- node [below] {$\scriptstyle f_*$} ($(A)+(0,0.2)$);
+\end{tikzpicture}
+\hspace{-5pt}
+}
+\newcommand{\adj}[2][20]{\arrowrl}
+\newcommand{\sub}[1][20]{\arrow[#1]{right hook->}}
+%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%--------------Makros
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}
+\newcommand{\QQ}{\ensuremath{\mathbb{Q}}}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\FF}{\ensuremath{\mathbb{F}}}
+%\newcommand{\Cinf}{\ensuremath{\mathcal{C}^{\infty}}}
+\newcommand{\Proj}{\ensuremath{\mathbb{P}}}
+\newcommand{\ra}{\ensuremath{\rightarrow}}
+\newcommand{\lra}{\ensuremath{\longrightarrow}}
+\newcommand{\D}{\ensuremath{\partial}}
+\newcommand{\A}{\ensuremath{\mathbb{A}}} %affiner Raum
+\newcommand{\calo}{\ensuremath{\mathcal{O}}} %mathcal O
+\newcommand{\res}{\ensuremath{\mathcal{R}}} %mathcal R
+\newcommand{\tr}{\operatorname{\mathfrak{T}}\nolimits}
+
+
+
+%Makros
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\depth}{depth}
+\DeclareMathOperator{\HH}{HHdim}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\add}{add}
+\DeclareMathOperator{\lat}{lat}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\coh}{coh}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\SU}{SU}
+
+
+\newcommand{\mc}[1]{\ensuremath{\mathcal{#1}}}   %mathcal
+\newcommand{\ms}[1]{\ensuremath{\mathscr{#1}}}   %mathscr
+\newcommand{\mf}[1]{\ensuremath{\mathfrak{#1}}}   %mathfrak
+
+
+\newcommand{\barA}{\ensuremath{\overline{A}}}
+\newcommand{\Cl}{\operatorname{Cl}\nolimits}
+\newcommand{\CH}{\operatorname{CH}\nolimits}
+\newcommand{\CM}{\operatorname{{MCM}}}
+\newcommand{\gl}{\operatorname{gl.dim}\nolimits}
+\newcommand{\gs}{\operatorname{gs}\nolimits}
+\newcommand{\height}{\operatorname{ht}\nolimits}
+\newcommand{\img}{\operatorname{Im}\nolimits}
+\newcommand{\mmod}[1]{\operatorname{mod}(#1)}
+\renewcommand{\NG}{\operatorname{NG}\nolimits}
+\newcommand{\pd}{\operatorname{proj.dim}\nolimits}
+\newcommand{\rad}{\operatorname{{rad}}}
+\newcommand{\rd}{\operatorname{rep.dim}\nolimits}
+\newcommand{\supp}{\operatorname{supp}\nolimits}
+\newcommand{\sCM}{\operatorname{\Omega{CM}}}
+
+\newcommand{\mm}{{\mathfrak{m}}}
+\newcommand{\pp}{{\mathfrak{p}}}
+
+
+%-----Comments
+\newcommand{\old}[1]{{\color{blue} #1}}
+\newcommand{\new}[1]{{\color{green} #1}}
+\newcommand{\ef}[1]{{\color{Cerulean} #1}}
+\newcommand{\sm}[1]{{\color{pink} #1}}
+
+%-------Makros fuer kommentare, etc
+% \newcommand{\komm}[1]{}   %kommentar - NICHT im pdf
+%\long\def\ignore#1\recognize{}    %plain tex command von hh - BESSER NICHT VERWENDEN!
+%\newcommand{\qu}[1]{\texttt{#1}} %question
+%\newcommand{\com}[1]{\begin{small}  #1 \end{small}}  %kommentar
+%%%%%%%%%%%%%%%%%
+
+%-------\theoremstyle{}
+\theoremstyle{theorem}
+\newtheorem{Thm}{Theorem}[section]         %f"ur Satz1, 2 ,3, etc.
+\newtheorem{lem}[Thm]{Lemma}
+\newtheorem{cor}[Thm]{Corollary}
+\newtheorem*{Lemm}{Lemma}   
+\newtheorem{prop}[Thm]{Proposition}   
+\newtheorem{Conj}{Conjecture}
+\newtheorem{Qu}[Thm]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[Thm]{Remark}
+\newtheorem{ex}[Thm]{Example}%[chapter] 
+\newtheorem{Construction}[Thm]{Construction}%[chapter] 
+
+\theoremstyle{definition}
+\newtheorem{defi}[Thm]{Definition} %neu
+
+
+%-----Counter
+\setcounter{section}{0}
+\setcounter{tocdepth}{2}
+
+%opening
+\title{Stratification of discriminants and irreducible representations}
+
+
+\author{Eleonore Faber, Colin Ingalls, Simon May, Marco Talarico}
+
+\address{
+School of Mathematics, University of Leeds, LS2 9JT Leeds, UK
+}
+
+\email{e.m.faber@leeds.ac.uk}
+
+
+
+
+\date{\today}
+\thanks{
+\noindent    
+2010 Mathematics Subject Classification:  \\
+{\it Keywords}: } 
+ 
+
+\begin{document}
+
+\begin{abstract}
+not very
+
+\end{abstract}
+
+
+
+\maketitle
+
+Some facts about stratification of discriminants
+
+
+Should define what a stratum is! \\
+Essentially: Let $X$ be an algebraic variety of dimension $d$, start with a filtration of $X= X_d \supseteq X_{d-1} \supseteq \cdots \supseteq X_1 \supseteq X_0$, such that each $X_i - X_{i-1}$ is a smooth open subvariety of $X_i$ or empty.  (Each $X_i$ is a subvariety of dimension $i$ of $X$)
+Then the connected components $Z_\alpha$ of $X_i - X_{i-1}$ are called the strata.  Note that the $Z_\alpha$ are smooth but their  closure $\overline{Z_\alpha}$  not necessarily. Note that $X$ can be written as a disjoint union of its strata. \\
+
+
+
+Some basics about reflection groups and discriminants: let  $G$ be a complex reflection group acting on the $k$-vectorspace $V$, $\dim(V)=n$. We denote by $S=\Sym_k(V) \cong  k[x_1, \ldots, x_n]$ and $R=S^G$. By the Chevalley--Shephard--Todd theorem REF $R \cong k[f_1, \ldots, f_n]$, where the basic invariants $f_i$ are algebraically independent and homogeneous. They are not unique but their degrees $d_i=\deg(f_i)$ are. 
+
+Denote by $\pi: V \xrightarrow{} V/G$ the canonical projection. The quotient space $V/G$  is $\Spec(R)$ and smooth of dimension $\dim(V)$. The image of the reflection arrangement $\mathcal{A}$ in $V$ is the discriminant $V(\Delta)$ in $V/G$. 
+
+\section{Stratification of the discriminant of $S_n$}
+
+Usually we restrict to the invariant hyperplane $V(x_1 + \cdots + x_n)$ in $V$, so that $S_n$ acts on $k^{n-1}$. By the theorem of Chevalley--Shephard--Todd the invariant ring $R=S^G$ is isomorphic to a polynomial ring in $n$ (or $n-1$) variables, generated by invariant polynomials $f_1, \ldots, f_n$, where each $f_i \in S$ can be chosen homogeneous of degree $i$. Note that the $f_i$ are not unique but their degrees are. \\
+Popular choices for the $f_i$ are the $p_i$ or the symmetric polynomials $s_i:=\sum_{k=1}^n x_k^i$. \\
+
+For the case $G=S_n$ we have $\mathcal{A}=V(\prod_{i < j}(x_i - x_j))$ and $\Delta$ can be identified with the discriminant in a versal deformation of an $A_n$-singularity (see Arnold's paper REF). 
+
+\ef{This paragraph is a mess!}More generally: Arnold proved this for all Coxeter groups with simply laced Dynkin diagrams, i.e. $A_n$, $D_n$, $E_{6,7,8}$: discriminant of the reflection group is difeomorphic to discriminant of versal deformations (there called singularities of wave fronts - the corresponding hyperplane arrangement is called caustic or bifurcation set in the dynamical systems speech). Later extended to crystallographic Coxeter groups: $B_n, C_n$, $F_4$, $G_2$ by WEYL?! see Book Arnold-Varchenko-Gusein-Zade:1 and finally also to $H_2, H_3, H_4$ by Lyashko, cf. \cite{Lyashko79, Lyashko84} (see paper by Shcherbak and its Mathsinet review by Janeczko for more detail)).
+
+In particular, for any Coxeter group $G$ one gets a natural stratification of the discriminant relating the strata to subgraphs of the Coxeter graph (see Section 6 of \cite{Shcherbak}). \\
+In the case for $G=S_n$ the quotient $V/G$ can be identified with the space of polynomials 
+$$F_n=x_{n}+\lambda_1x^{n-1} + \ldots + \lambda_{n-1}$$
+and the stratification of this space is given by the multiplicities of the roots of $F_n$. One can encode them into Young diagrams with $n$ boxes and relate a subgraph of the Coxeter graph to each Young diagram (explained in \cite[p.185]{Shcherbak}). \\
+
+\ef{This might not be standard convention but following Shcherbak} We let $n \geq k_1 \geq k_2 \geq \cdots \geq k_s \geq 1$ be a partition of $n$ (i.e., $\sum_{i=1}^sk_i=n$), and the corresponding Young diagram be given with $s$ columns, where the $i$-th column consists of  $k_i$ boxes. (\ef{i.e., the trivial representation corresponds to the partition $(1, \ldots, 1)$}).
+
+Let us now prove an interesting fact that is mentioned in \cite[p.185]{Shcherbak} without proof:
+
+
+\begin{lem}  \label{Lem:rectangular}
+Consider $G=S_n$ acting on $V$. Then the closure of the stratum corresponding to a rectangular Young diagram is a smooth subvariety of $V(\Delta)$. \ef{Should be if and only if!}
+\end{lem}
+
+\begin{proof} In order to have a rectangular Young diagram, $n$ must be decomposable, say $n=lk$.  Consider the partition $(k,\ldots, k)$ corresponding to the rectangular Young diagram with $l \times k$ boxes. This means that  a point in the corresponding stratum of $V/G$ is the image of a point $p \in V$ of the form 
+$$p=(\underbrace{\sigma_1, \ldots, \sigma_1}_k, \ldots, \underbrace{\sigma_l, \ldots, \sigma_l}_k) \ ,$$
+ where $\sigma_i \neq \sigma_j$ for $i \neq j$ (to be precise: the whole $S_n$-orbit of $p$ projects to the same point in $V/G$). This means that $p$ lies in the intersection of $l { k \choose 2}=\frac{n(k-1)}{2}$ hyperplanes in the reflection arrangement. \ef{Note: we are not restricting to the hyperplane $x_1 + \cdots + x_n$ yet.} Take the power sums $s_m=\sum_{i=1}^nx_i^m$ as basic invariants of $R$, i.e., $R=S^{S_n}=k[s_1, \ldots, s_n]$. We can restrict to the hyperplane by setting $s_1=0$. Note in particular that the $s_m$ are algebraically independent for $m=1, \ldots, n$. 
+
+Now $\pi(p)=(s_1(p), \ldots, s_n(p))$ evaluates to 
+$$(k s_1(\sigma_1, \ldots, \sigma_l), \ldots, k s_l(\sigma_1, \ldots, \sigma_l), \ldots, k s_n(\sigma_1, \ldots, \sigma_l)) \ . $$
+These are polynomials in the $l$ distinct roots $\sigma_1, \ldots, \sigma_l$ \ef{Here this is a bit subtle: we denote also by $s_m$ the power sums of the $l$ variables, strictly speaking we should maybe denote them by $\tilde s_m$}. Now since $\tilde s_1, \ldots, \tilde s_l$ are algebraically independent (they are the basic invariants for $S_l)$, it follows that $\tilde s_i(\sigma_1, \ldots, \sigma_l)$ for $i=l+1, \ldots, n$ is a polynomial $P_i$ in the $\tilde s_j$ for $j=1, \ldots, l$. Hence the image of $p$ can be written in the coordinates $\tilde s_i$ as
+$$(k \tilde s_1, \ldots, k \tilde s_l, k P_{l+1}(\tilde s_1, \ldots, \tilde s_l), \ldots, k P_n(\tilde s_1, \ldots, \tilde s_l)) \ .$$
+This parametrizes an $l$-dimensional subvariety of $V/G$. The closure of this image has equations, now denoting the generators of $S^{S_n}$ by $y_1, \ldots, y_n$:
+$$y_{l+1}-k P_{l+1}(\frac{y_1}{k}, \ldots, \frac{y_l}{k}), \ldots, y_n-kP_n(\frac{y_1}{k}, \ldots, \frac{y_l}{k}) \ .$$
+Denote the ideal generated by these $n-l$ equations by $I$. Then $V(I)$ is a complete intersection subvariety of $V/G=\Spec(k[y_1, \ldots, y_n])$ of codimension $n-l$, i.e., $V(I)$ has dimension $l$.
+Clearly (Jacobian criterion! - since $k \geq 2$, there is a $l \times l$-minor of the Jacobian matrix of $I$ that is the identity matrix $\mathbb{1}_{l}$) this subvariety is smooth and is isomorphic to $\Spec(k[y_1, \ldots, y_l])$.
+\end{proof}
+
+--Simon--
+
+\begin{lem}
+Consider $G=S_n$ acting on $V$. Then the closure of the stratum corresponding to the partition $(j,n-j)$ where $0<j<n$ and $j \neq \frac{n}{2}$ is a subvariety of $V(\Delta)$ isomorphic to a cusp singularity.
+\end{lem}
+\begin{proof}
+We note that when $j=\frac{n}{2}$, then the closure of the stratum corresponding to the partition $(\frac{n}{2},\frac{n}{2})$ is smooth. 
+
+Again we take the powers sums $s_m=\sum_{i=1}^nx_i^m$ as basic invariants of $R$.
+
+$$p=(\underbrace{\sigma_1, \ldots, \sigma_1}_{j}, \underbrace{\sigma_2, \ldots, \sigma_2}_{n-j}) \ ,$$
+
+Now $\pi(p)=(s_1(p), \ldots, s_n(p))$ evaluates to 
+
+$$(j\sigma_1+(n-j)\sigma_2,j\sigma_1^2+(n-j)\sigma_2^2,..., j\sigma_1^n+(n-j)\sigma_2^n)$$
+
+Now restricting to the hyperplane $s_1 = 0$ we get the relation $-j\sigma_1=(n-j)\sigma_2$, rearranging to get $\sigma_2= -\frac{j}{(n-j)}\sigma_1$. After this restriction, the projection becomes:
+
+ $$\pi(p)=(s_1(p), \ldots, s_n(p))= (0,\frac{j(n-j)+(-j)^2}{n-j})\sigma_1^2,...,\frac{j(n-j)^{n-1}+(-j)^n}{(n-j)^{n-1}}) \sigma_1^n).$$
+ 
+ Again if $j=\frac{n}{2}$ then only we see that $s_i(p)=0$ for all odd $i$ - leading to a parabola.
+ 
+ 
+For cleanliness sake, Let $a_i :=\frac{j(n-j)^{i-1}+(-j)^i}{(n-j)^{i-1}}$, the above becomes:
+
+$$\pi(p)=(s_1(p), \ldots, s_n(p))= (0,a_1\sigma_1^2,a_2\sigma_1^3,...,a_{n-1}\sigma_1^n).$$
+
+
+The closure of the image of $\pi$ is a subvariety of $V(\Delta)$ given by the equations:
+
+$$s_1, a_1^3s_3^2-a_2^2s_2^3.$$
+
+and let $m$ be an integer such that $3<m$ and $m=2m_1+3$, then we get the relations:
+
+$$a_1^{m_1}a_2s_m - a_{m-1}s_2^{m_1}s_3$$
+Which is isomorphic (\sm{unneeded?} ) a cusp singularity.
+
+\end{proof}
+
+\section{Questions}
+
+\begin{enumerate}[1.]
+\item Description of the other strata? In particular: which singularities arise (always the same ones?)? Find all strata for the $S_5$-discriminant
+\item Similar statement as Lemma \ref{Lem:rectangular} for other complex reflection groups? At least for the crystallographic Coxeter groups?
+\item Find the fitting ideals for the MCM-modules coming from the irreducible representations of $G$: do they correspond to certain strata (closures of them)? Which ones? Work this out for $S_5$! Also interesting: $B_3$
+\item What about connection between discriminants of deformations and reflection groups for non-Coxeter groups: do we at least get some statement for the true reflection groups? \ef{Haven't really thought about this, but the literature is all about real reflection groups - in Orlik--Terao is also stratification of discriminant for any complex reflection group via fitting ideals, but this is too coarse}
+\end{enumerate}
+
+\section{General facts about discriminants}
+
+
+\bibliographystyle{alpha}
+\bibliography{biblioMcKay}
+
+
+
+\end{document}
