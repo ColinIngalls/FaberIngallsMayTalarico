@@ -1,0 +1,21 @@
+\def\cprime{$'$} \def\cprime{$'$}
+\begin{thebibliography}{Lya83}
+
+\bibitem[Lja79]{Lyashko79}
+O.~V. Lja\v{s}ko.
+\newblock The geometry of bifurcation diagrams.
+\newblock {\em Uspekhi Mat. Nauk}, 34(3(207)):205--206, 1979.
+
+\bibitem[Lya83]{Lyashko84}
+O.~V. Lyashko.
+\newblock Geometry of bifurcation diagrams.
+\newblock In {\em Current problems in mathematics, {V}ol. 22}, Itogi Nauki i
+  Tekhniki, pages 94--129. Akad. Nauk SSSR, Vsesoyuz. Inst. Nauchn. i Tekhn.
+  Inform., Moscow, 1983.
+
+\bibitem[Shc88]{Shcherbak}
+O.~P. Shcherbak.
+\newblock Wave fronts and reflection groups.
+\newblock {\em Uspekhi Mat. Nauk}, 43(3(261)):125--160, 271, 272, 1988.
+
+\end{thebibliography}
