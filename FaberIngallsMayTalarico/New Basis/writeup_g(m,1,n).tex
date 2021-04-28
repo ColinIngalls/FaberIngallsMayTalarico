@@ -1,0 +1,64 @@
+\documentclass[../MT.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Matrix Factorization of the Determinant over G(m,1,n)}
+Consider a finite reflection group $ G = G(m,1,n) $ acting on $ A = \C[x_1,\hdots,x_n] $ by permuting the elements, then by the theorem of Chevalley-Sheppard Todd there exists algebraic independent $ f_1,\hdots,f_n \in A $ such that $ B = A^G = \C[f_1,\hdots,f_n] $ and $ A $ is a finite dimensional free module over $ B $. For $ \lambda = (\lambda_1,\hdots,\lambda_m) \in \type(n_1,\hdots,n_m) $ for a partition $ (n_1,\hdots,n_m) \vdash n $ we consider the Specht module $ S_\lambda $ and the isotypical components of $ A $ over $ \lambda $ as 
+\[ A_\lambda = \hom_{\C G}(S_\lambda,A)\]
+
+
+% 1) - hyperplanes
+Consider the set of reflecting hyperplane $ \mathfrak{A}(G) $ to be the set of hyperplanes in $ \C^n $ which are fixed for some reflection in $ G $. For some reflecting hyperplane $ h \in \mathfrak{A}(G) $ then the subgroup $ \text{stab}(h) \leq G $ is cyclic with order $ d_h $, furthermore we could describe each hyperplane as a linear equation $ e_h = 0 $ where $ e_h \in A $. We then define the following polynomials 
+\[z = \Pi_{h\in \mathfrak{A}(G)} e_h  \text{ and } j = \Pi_{h\in \mathfrak{A}(G)} e_h^{d_h}\]
+With this we define the discriminant of $ G $ to be $ \Delta = zj $. Note that we can define the linear maps $ z,j: A \to A $ by multiplication by $ z $ and $ j $ respectively, and since $ A $ is a free module over $ B $ these maps are linear maps from $ A $ to itself as a $ B $-module, which we will denote $ \rho_z $ and $ \rho_j $ respectively. It is known that $ z $ and $ j $ belongs to the determinial representation $ det $ so that multiplication by $ z $ yields the following map $ z:A_\lambda  \to A_{\lambda'} $ where $ \lambda' = (\lambda_{m},\lambda_1,\hdots,\lambda_{m-1}) $ while multiplication by $ j $ gives $ j:A_\lambda \to A_{\lambda^{-1}} $ where $ \lambda^{-1} = (\lambda_2,\hdots,\lambda_m,\lambda_1) $. Knowing that $ \Delta \in B$ we know that $ \rho_z\circ\rho_j = \Delta I $ where $ I $ is the identity map from $ A $ to $ A $ as a module over $ B $. This gives us a matrix factorization of $ \Delta $ given by multiplication by $ z $ and $ j $ respectively
+\[A_\lambda \xrightarrow{z} A_{\lambda'} \xrightarrow{j} A_\lambda\]
+% 2) Build the Higher Specht Polynomials
+
+Recall that $ \text{ST}(\lambda) $ is the set of $ m $-tableaux $ (T_1,\hdots,T_m) $ such that $ T_i $ is a standard tableaux of shape $ \lambda_i $, thus if $ T \in \text{ST}(\lambda) $ then for each $ 1 \leq i \leq m $ we can build the following idempotents
+$ \varepsilon_T = \sum_{c\in C(T_i)}\sum_{r\in R(T_i)} \text{sgn}(c)cr $ and $ \sigma_T = \sum_{c\in C(T_i)}\sum_{r\in R(T_i)} \text{sgn}(r)cr $, where $ C(T_i) $ and $ R(T_i) $ are the column and row stabilizer respectively. Given $ T,V \in \text{ST}(\lambda) $ we define the following polynomials
+\[F_T^V = (\varepsilon_T.x_T^V)(\mu_T) \text{ and } H_T^V = (\sigma_T\varepsilon_T.x_T^V)(\mu_T) \]
+Where $ \mu_T = \Pi_{i=1}^m\Pi_{j \in T_i} (x_j)^i $. With this we also define the following sets $ F_T = \{F_T^S \st S \in \text{ST}(\lambda)\} $ and $ F^T = \{F_S^T \st S \in \text{ST}(\lambda)\} $, similarly we define similar sets for $ H_T $ and $ H^T $. Lastly if we index by $ \lambda $, so $ F_\lambda = \{F_T^V \st T,V \in \text{ST}(\lambda)\} $
+
+% 3) - matrix factorization of D
+With the basis $ F_p $ and $ H_p $ we can now express the linear maps $ \rho_z $ and $ \rho_j $ as a matrix over $ B $, where
+both matrices given are of size $ \dim(S_\lambda)^2 $. However we wish to decompose these matrix factorization further, to begin let us examine using $ H_p $ as a basis for $ A_p $ and $ F_{p'} $ as a basis for $ A_{p'} $ and restricting $ \rho_z:H_p \to F_{p'} $. We obtain the following.
+\begin{align}zH_T^V = \sum\limits_{U,W \in \text{ST}(\lambda')}g_{U,T}^{W,V} F_U^W\end{align}
+Where $ g_{U,T}^{W,V} \in B $ are the entries in this matrix. Recall that for $ T,V \in \text{ST}(\lambda) $ we have that $ F_T^V = \varepsilon_Tx_T^V(\mu_T) $ and $ H_T^V = \sigma_T\varepsilon_Tx_T^V(\mu_T) $ where $ \mu_T = \Pi_{i=1}^m\Pi_{j \in T_i}(x_j)^i $. First consider the group $ P = \text{Perm}(T_i) $ for some $ 1 \leq i \leq m $ to be the group permuting the entries of $ T_i $ of $ m $-tableaux $ T $, then it is easy to see that
+\begin{align*}
+g.F_T^V  &= g(\varepsilon_T.x_T^V)(\mu_T)\\
+		 &= (g.\varepsilon_T.x_T^V)(g.\mu_T)\\
+		 &= (g.\varepsilon_T.x_T^V)(g.\Pi_{i=1}^m\Pi_{j \in T_i}(x_j)^i) \\
+		 &= (g.\varepsilon_T.x_T^V)(\Pi_{i=1}^m\Pi_{j \in T_i}(x_{g(j)})^i)\\
+		 &= (g.\varepsilon_T.x_T^V)(\mu_T)
+\end{align*}
+Therefore applying the idempotent $ \varepsilon_{T_i}.F_T^V  = F_T^V $ since all the terms in $ \varepsilon_{T_i} $ belong to permutations in $ T_i $ and $ \varepsilon_{T_i}\varepsilon_T =\varepsilon_T $, a similar argument can be made and we may show that $ \sigma_{T_i}.H_T^V = H_T^V $. Using this we can decompose the matrix factorizations we obtained from $ \rho_z $ and $ \rho_j $ into smaller ones by analyzing the $ g_{U,T}^{W,V} $ coefficients in equation (1)
+
+\textbf{Theorem 1:} given $ T \in \text{ST}(\lambda) $ we have that multiplication by $ z $ will induce the map $ z:H_T \to F_{T'} $ and $ z:F_{T'} \to H_{T'} $
+
+\textit{Proof:} First consider $ H_T^V \in H_T $, and recall the equation obtained by applying $ \rho_z $ to $ H_T^V $ we have
+\[ zH_T^V = \sum\limits_{U,W \in \text{ST}(\lambda')}g_{U,T}^{W,V} F_U^W \]
+Recall that since $ z \in A_{det} $ then for any $ g \in S_n $ we have that $ g.z = \text{sgn}(g)z $, and that the row stabilizer $ R(T_i) $ is the column stabilizer $ C(T_i') $ of its conjugate tableaux, similarly $ C(T_i) = R(T_i') $, with this we obtain the following
+\begin{align*}
+	\varepsilon_{T_i'}(zH_T^V) 
+	&= \sum\limits_{c\in C(T_i'), r \in R(T_i')} \text{sgn}(c)cr(zH_T^V) \\
+	&= \sum\limits_{c\in C(T_i'), r \in R(T_i')} z(\text{sgn}(r)(cr(H_T^V)))\\
+	&= z(\sigma_{T_i}(H_T^V)) \\
+	&= z(\sigma_{T_i} (\sigma_{T_1}\cdots \sigma_{T_m}).x_T^V ) \\
+	&= z(H_T^V) 
+\end{align*}
+Thus $ z(H_T^V) $ is invariant under the action of $ \varepsilon_{T_i} $ for any $ i $. Now we look at the right hand side of the equation 
+\begin{align*}
+	\varepsilon_{T_i'}(\sum\limits_{U,W \in \text{ST}(\lambda')}g_{U,T}^{W,V} F_U^W) &= \sum\limits_{U,W \in \text{ST}(\lambda')}g_{U,T}^{W,V}\varepsilon_{T_i'} F_U^W\\
+	&= \sum\limits_{U,W \in \text{ST}(\lambda') \text{ and } U_j = T_i'}g_{U,T}^{W,V} F_U^W
+\end{align*}
+Therefore by applying $ \varepsilon_{T_i'} $ we kill any higher Specht polynomial $ F_U^W $ of type $ \lambda' $ if $ U = (U_1,\hdots,U_m) $ does not match one of it's $ j $'th component with $ T_i' $. From this we can conclude that by
+applying $ \varepsilon_{T'} $ we would be left with term $ F_{T'}^W $.
+\begin{align*}
+zH_T = \varepsilon_T(zH_T) = \varepsilon_T(\sum\limits_{U,W \in \text{ST}(\lambda')}g_{U,T}^{W,V} F_U^W) = \sum\limits_{W \in \text{ST}(\lambda')}g_{U,T}^{W,V} F_{T'}^W \in F_{T'}
+\end{align*}
+\qed
+
+With this theorem we obtain that each $ T \in \text{ST}(\lambda) $ we have a matrix $ M_T $ such that $ M_T:H_T \to F_{T'} $ given by the map $ \rho_z $. Note that we can define a similar matrix $ N_T $ for the map $ \rho_j $, which together will form the matrix factorization of $ M_TN_{T'} = N_{T'}M_T = \Delta I $.
+
+
+\end{document}
