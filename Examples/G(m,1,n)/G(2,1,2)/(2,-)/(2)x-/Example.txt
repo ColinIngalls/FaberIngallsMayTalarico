@@ -1,0 +1,28 @@
+LATEX 
+ 
+z 
+ 
+$\left(\!\begin{array}{c}
+1\\
+\end{array}\!\right)$ 
+
+
+ 
+j 
+ 
+$\left(\!\begin{array}{c}
+\frac{1}{4}\,f_{1}^{2}f_{2}-f_{2}^{2}\\
+\end{array}\!\right)$ 
+ 
+--------------------------------------- 
+ 
+MACAULAY2 
+z 
+ 
+matrix {{1}} 
+
+
+ 
+j 
+ 
+matrix {{(1/4)*f_1^2*f_2-f_2^2}}

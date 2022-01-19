@@ -1,0 +1,9 @@
+z
+$\left(\!\begin{array}{c}
+1\\
+\end{array}\!\right)$
+
+j
+$\left(\!\begin{array}{c}
+\frac{1}{4}\,f_{1}^{2}-f_{2}\\
+\end{array}\!\right)$
