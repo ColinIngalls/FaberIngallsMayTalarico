@@ -1,14 +1,14 @@
 newPackage(
         "SpechtPolynomials",
-        Version => "1.0", 
+        Version => "1.0",
         Date => "May 25, 2022",
         Authors => {{Name => "Marco Talarico"}},
         Headline => "Higher Specht Polynomials",
-        DebuggingMode => true
+        DebuggingMode => true,
+        PackageImports => {
+        "SpechtModule"
+        }
         )
-
-
-needsPackage "SpechtModule"
 
 -- exporting all functions and types
 
@@ -136,12 +136,12 @@ mtab List :=  tabs ->(
 
 net YoungTableau := tableau ->( -- This is Jonathan's Nino's code I needed to modify
     if #values tableau == 0 then return "-";
-    if #(tableau#values) == 0 then return "-"; 
+    if #(tableau#values) == 0 then return "-";
     l := tableauToList tableau;
     corner := #(tableau#partition) ;
     tableauNet:= "|" ;
-    for i to corner-2 do tableauNet = tableauNet || "|"; 
-    for i to numcols tableau-1 do ( 
+    for i to corner-2 do tableauNet = tableauNet || "|";
+    for i to numcols tableau-1 do (
 	column:= tableau_i;
 	columnString := " "|column#0;
 	for j from 1 to #column-1 do columnString = columnString|| " "|column#j;
@@ -150,7 +150,7 @@ net YoungTableau := tableau ->( -- This is Jonathan's Nino's code I needed to mo
 	tableauNet = tableauNet|columnString;
 	);
     columnString := " |";
-    for i to corner-2 do columnString= columnString || " |"; 
+    for i to corner-2 do columnString= columnString || " |";
     tableauNet = tableauNet | columnString;
     tableauNet
 )
@@ -223,7 +223,7 @@ allWords List := tp -> (
 	);
    return wrdList;
    )
-	
+
 wordToFunc = method(TypicalValue => List);
 wordToFunc List := wrd -> (
     func := {};
@@ -241,7 +241,7 @@ wordToFunc List := wrd -> (
    );
 
 -- comparisons and last letter --
-    
+
 Partition ? Partition := (p,q) -> (
     if (sum toList p) > (sum toList q) then return symbol >;
     if (sum toList p) < (sum toList q) then return symbol <;
@@ -261,9 +261,9 @@ Partition ? Partition := (p,q) -> (
 	if m<0 then return symbol >;
 	);
     )
-	
-    
-    
+
+
+
 mTableaux ? mTableaux := (T,V) -> (
     lastLetter := 0;
     if numChar T < numChar V then return symbol <;
@@ -271,7 +271,7 @@ mTableaux ? mTableaux := (T,V) -> (
     if numTab T < numTab V then return symbol <;
     if numTab T > numTab V then return symbol >;
     if numChar T == 0 then return symbol ==;
-    n := numChar T; 
+    n := numChar T;
     m := numTab T;
     entrieT := apply(T, i-> entries i);
     entrieV := apply(V, i-> entries i);
@@ -289,12 +289,12 @@ mTableaux ? mTableaux := (T,V) -> (
     rowT := position(apply(numRows T_posT, i-> (T_posT)^i), j-> member(n,j));
     rowV := position(apply(numRows V_posV, i-> (V_posV)^i), j-> member(n,j));
     if rowT < rowV then return symbol >;
-    if rowT > rowV then return symbol <; 
+    if rowT > rowV then return symbol <;
     return symbol ==;
     )
-    
--- Generating Natural Standard Tableaux and Standard Tableaux --     
-    
+
+-- Generating Natural Standard Tableaux and Standard Tableaux --
+
 
 tabFromPar = method(TypicalValue => List, Options => {Entries => {-1}, NST => false});
 tabFromPar List := o->par -> (
@@ -342,7 +342,7 @@ tabFromPar List := o->par -> (
 	    );
     	);
     return sort mtabList;
-    )   
+    )
 
 conjugate YoungTableau := (tab) -> (
     if (entries tab == {}) then (return tab);
@@ -389,7 +389,7 @@ charge mTableaux := (tabList) -> (
 	 );
      return v;
      )
- 
+
 
 fillUp = method(TypicalValue => List)
 fillUp (List,ZZ) := (l,m) -> (
@@ -405,7 +405,7 @@ fillUp (List,ZZ) := (l,m) -> (
 	);
     return newList;
     )
-  
+
 rowPermutations = method(TypicalValue => List);
 rowPermutations mTableaux := tab -> (
     if (#tab == 0) then return {};
@@ -434,7 +434,7 @@ rowPermutations mTableaux := tab -> (
 	);
     return sort toList perm;
     )
-	
+
 
 colPermutations = method(TypicalValue => List);
 colPermutations mTableaux := tab -> rowPermutations conjugate tab;
@@ -461,7 +461,7 @@ hspMonomial (PolynomialRing,mTableaux,mTableaux) := (rng,T,V) -> (
     v := charge V;
     return product toList apply(0..numgens rng-1, i-> x_(w_i)^(v_i));
     )
-    
+
 hsp = method(TypicalValue => List, Options => {Class => 1, GroupType => 1});
 hsp (PolynomialRing,mTableaux,mTableaux) := o->(rng,T,V)-> (
     if (numChar T != numChar V) then error "tableaux lists are not of the same size";
@@ -471,7 +471,7 @@ hsp (PolynomialRing,mTableaux,mTableaux) := o->(rng,T,V)-> (
     h := (map(rng,ZZ)) 0;
     permSet := youngSymmetrizer(T);
     if (o.Class == 1) then apply(permSet, p -> h = h + (p_0)*permutePolynomial(p_1,permutePolynomial(p_2,m)));
-    if (o.Class == 2) then apply(permSet, p -> h = h + (p_0)*permutePolynomial(p_2,permutePolynomial(p_1,m)));    
+    if (o.Class == 2) then apply(permSet, p -> h = h + (p_0)*permutePolynomial(p_2,permutePolynomial(p_1,m)));
     if (o.GroupType == 1) then return h;
     extraMonomial := product flatten toList apply(0..#T-1, t -> apply(entries (T_t), i-> x_i^t));
     M := numTab T;
@@ -510,7 +510,7 @@ definingPolynomial (Ring,ZZ) :=  (R,m) -> (
     T := first tabFromPar par;
     return hsp(R,T,T, GroupType => groupType);
     );
-	    
+
 
 
 -- Ordering From Yamada
@@ -539,7 +539,7 @@ auxOrdList ? auxOrdList := (T,V) -> (
     if C > D then return symbol >;
     return symbol ==;
     )
-    
+
 orderTuples = method(TypicalValue => List);
 orderTuples (List,List) := (tabs1,tabs2)-> (
     tupleList := {};
@@ -554,11 +554,11 @@ orderTuples (List,List) := (tabs1,tabs2)-> (
 
 
 
--- High Specht Functions -- 
+-- High Specht Functions --
 
 HigherSpechtPolynomial = new Type from MutableHashTable;
-    
- 
+
+
 
 HSP = method(TypicalValue=> HigherSpechtPolynomial);
 HSP (PolynomialRing, ZZ,ZZ) := (rng,m,category) -> (
@@ -569,13 +569,13 @@ HSP (PolynomialRing, ZZ,ZZ) := (rng,m,category) -> (
      hp#class = category;
      return new HigherSpechtPolynomial from hp;
      )
- 
+
 net HigherSpechtPolynomial := (hp) -> (
     if (hp#class == 1) then return "Higher Specht Polynomials over G("|(net hp#size)|",1,"|(net hp#numgens)|") of type F";
     if (hp#class == 2) then return "Higher Specht Polynomials over G("|(net hp#size)|",1,"|(net hp#numgens)|") of type H";
     return "";
     )
-     
+
 
 HigherSpechtPolynomial_mTableaux := (h,T)-> (
     par := toList apply(T, t -> t#partition);
@@ -590,7 +590,7 @@ HigherSpechtPolynomial^mTableaux := (h,T)-> (
     hs := apply(tabList, V -> hsp(h#ring,V,T, Class=> h#class));
     return (tabList, hs);
     )
-     
+
 HigherSpechtPolynomial_List := (h,par) -> (
     bTabList := tabFromPar(par, NST => true);
     tTabList := tabFromPar par;
@@ -604,5 +604,194 @@ HigherSpechtPolynomial^List := (h,par) -> (
     tabList := orderTuples(bTabList,tTabList);
     return (toList set tabList, apply(tabList, T -> hsp(h#ring,T_0,T_1,Class=>h#class)));
     )
+beginDocumentation()
+
+doc ///
+--package
+ Node
+  Key
+   SpechtPolynomials
+  Headline
+      A package to compute higher Specht Polynomials for the complex reflection groups G(m,p,2)
+  Description
+   Text
+    {\em SpechtPolynomials} computes the .... add Description
+  Subnodes
+    makePar
+    parFromType
+    typeFromPar
+    allTypes
+    allPartitions
+    listToPartition
+    toPartition
+    numChar
+    numTab
+--makePar
+ Node
+  Key
+    (makePar,List)
+    makePar
+  Headline
+    Makes an object that contains a p-tuple of partitions
+  Usage
+    par = makePar(P)
+  Inputs
+    P:List
+      A list of partitions, including the empty partition, given by lists of positive integers or an empty list.
+  Outputs
+    par:List
+      List of partition objects.
+  Description
+    Text
+      This function takes in a list containing, possibly empty, list of positive integers and output list of Partition objects.
+    Example
+      makePar({{2,1},{},{1}})
+--parFromType
+ Node
+   Key
+     (parFromType,List)
+     parFromType
+   Headline
+     Makes a list of all possible partitions of given type
+   Usage
+     L = parFromType(type)
+   Inputs
+     type:List
+       A list of positive integers, possibly 0.
+   Outputs
+     L:List
+       List of lists of partitions of given type.
+   Description
+     Text
+       This function takes in a type of partition given as a list containing, possibly 0, integers and outputs a list of all lists of partitions of the given type.
+     Example
+       parFromType({3,2,2})
+--typeFromPar
+ Node
+   Key
+    (typeFromPar,List)
+    typeFromPar
+   Headline
+    Recovers the type of the given list of partitions
+   Usage
+    t=typeFromPar(P)
+   Inputs
+    P:List
+      A list of partitions
+   Outputs
+    t:List
+      The type of the given list of partition given as a list of integers.
+   Description
+     Text
+      Given a list $\lambda$ of partitions of type $(n_1,...n_m)$, typeFromPar($\lambda$) recovers the type $(n_1,...,n_m)$.
+--allTypes
+ Node
+  Key
+    (allTypes,ZZ,ZZ)
+    allTypes
+  Headline
+    A function to return all the possible types of a specific configuration.
+  Usage
+    allTypes(m,n)
+  Inputs
+    m:ZZ
+      The number of partitions.
+    n:ZZ
+      The amount of total cells.
+  Outputs
+    :
+      A list of all types of possible $m$-partitions with $n$-cells.
+  Description
+    Text
+      Given two non negative integers $(m,n)$ this function returns a list of all possible types of $m$-partitions with $n$-cells.
+--allPartitions
+Node
+  Key
+    allPartitions
+    (allPartitions,ZZ,ZZ)
+  Headline
+    Returns all partitions of a configuration
+  Usage
+    a=allPartitions(m,n)
+  Inputs
+    m:ZZ
+      The number of partitions.
+    n:ZZ
+      The amount of total cells.
+  Outputs
+    :
+      A list of all partitions of a configuration
+  Description
+    Text
+      WIP
+--listToPartition
+Node
+  Key
+    (listToPartition,List)
+    listToPartition
+  Headline
+    A function to create a partition object from a list of non negative integers.
+  Usage
+    listToPartition(P)
+  Inputs
+    P:
+      A list of integers
+  Outputs
+    :Partition
+      A Partition object
+  Description
+    Example
+      listToPartition({2,1})
+--toPartition
+Node
+  Key
+    (toPartition,List)
+    toPartition
+  Headline
+    Creates a tuple of partition objects from a list of list of non negative integers.
+  Usage
+    toPartition(L)
+  Inputs
+    L: List
+      A list of lists of non negative integers.
+  Outputs
+    : List
+      A list of partition objects
+  Description
+    Text
+      WIP
+--numChar
+Node
+  Key
+    (numChar,mTableaux)
+    numChar
+  Headline
+    Calculates the number of cells of a mTableaux object
+  Usage
+    numChar(M)
+  Inputs
+    M:
+  Outputs
+    n:ZZ
 
 
+  Description
+    Text
+--numTab
+Node
+  Key
+    (numTab,mTableaux)
+    numTab
+  Headline
+    Returns the length of the mTableaux
+  Usage
+    numTab(M)
+  Inputs
+    M:
+  Outputs
+    :ZZ
+  Description
+    Text
+
+///
+end--
