@@ -5,10 +5,11 @@ newPackage(
         Authors => {{Name => "Marco Talarico"}},
         Headline => "Higher Specht Polynomials",
         DebuggingMode => true,
-        PackageImports => {
+        PackageExports => {
         "SpechtModule"
         }
         )
+
 
 -- exporting all functions and types
 
@@ -172,7 +173,7 @@ numTab mTableaux := mtab -> (
 partition List := mtab -> return apply(mtab, i-> mtab#partition);
 
 nstWord = method(TypicalValue => List);
-nstWord List := tp -> (
+nstWord List := tp -> ( --given a list of integers creates subsets telling you what numbers can be in which position of an mTableaux?
     n:= sum tp;
     indx:= 0;
     auxList:= new MutableHashTable;
@@ -194,7 +195,7 @@ nstWord List := tp -> (
     )
 
 allWords = method(TypicalValue => List);
-allWords List := tp -> (
+allWords List := tp -> ( -- creates a list of all possible entries that can appear in the different positions of an mTableaux
     if #tp == 0 then return {};
     n := sum tp;
     if n==0 then return apply(tp, i-> new MutableHashTable);
@@ -626,6 +627,17 @@ doc ///
     toPartition
     numChar
     numTab
+    mTableaux
+    mtab
+    tabFromPar
+    shift
+    word
+    charge
+    fillUp
+    rowPermutations
+    colPermutations
+    hspMonomial
+    hsp
 --makePar
  Node
   Key
@@ -783,15 +795,192 @@ Node
     (numTab,mTableaux)
     numTab
   Headline
-    Returns the length of the mTableaux
+    Returns the length of an mTableaux objects
   Usage
     numTab(M)
   Inputs
-    M:
+    M: mTableaux
   Outputs
     :ZZ
   Description
     Text
+--mTableaux Type
+Node
+  Key
+    (mTableaux)
+    mTableaux
+  Headline
+    the class of m-tuples of Young tableaux
+  Description
+    Text
+      This type represents a m-tuple of Young tableaux, it is a list of the type Young Tableaux from the package "SpechtModule"
+--mtab constructor
+Node
+  Key
+    (mtab,List)
+    mtab
+  Headline
+    Constructor method for the mTableaux object
+  Usage
+    numTab(L)
+  Inputs
+    L: List
+      A list of tableau objects
+  Outputs
+    :mTableaux
+  Description
+    Text
+      Takes a list of m Tableau objects (from the package "SpechtModule") constructs a m-tableau object.
+--tabFromPar
+Node
+  Key
+    (tabFromPar,List)
+    tabFromPar
+  Headline
+    Outputs all mTableaux from a List of Partitions.
+  Usage
+    tabFromPar(L)
+  Inputs
+    L: List
+      of tableau objects
+  Outputs
+    :List
+      of mTableaux
+  Description
+    Text
+--shift
+Node
+  Key
+    (shift,mTableaux)
+    shift
+  Headline
+    shifts a mTableaux to the right by one.
+  Usage
+    shift(M)
+  Inputs
+    M: mTableaux
+  Outputs
+    :List
+  Description
+    Text
+--word
+Node
+  Key
+    (word,mTableaux)
+    word
+  Headline
+    outputs the word of an mTableaux
+  Usage
+    word(M)
+  Inputs
+    M: mTableaux
+  Outputs
+    :List
+      of mTablea
 
+      ux
+  Description
+    Text
+--charge
+Node
+  Key
+    (charge,mTableaux)
+    charge
+  Headline
+    outputs the charge of an mTableaux
+  Usage
+    charge(M)
+  Inputs
+    M: mTableaux
+  Outputs
+    :List
+
+  Description
+    Text
+--fillUp
+Node
+  Key
+    (fillUp,List,ZZ)
+    fillUp
+  Headline
+    fills up a set ...
+  Usage
+    a=fillUp(S,n)
+  Inputs
+    S:List
+    n:ZZ
+  Outputs
+    a:
+  Description
+    Text
+      used to create permutations.
+-- rowPermutations
+Node
+  Key
+    (rowPermutations,mTableaux)
+    rowPermutations
+  Headline
+    output a list of all permutations that stabilise rows
+  Usage
+    colPermutations(M)
+  Inputs
+    M: mTableaux
+  Outputs
+    :List
+     of permutations
+  Description
+    Text
+--colPermutations
+Node
+  Key
+    (colPermutations,mTableaux)
+    colPermutations
+  Headline
+    output a list of all permutations that stabilise columns
+  Usage
+    colPermutations(M)
+  Inputs
+    M: mTableaux
+  Outputs
+    :List
+     of permutations
+  Description
+    Text
+--hspMonomial
+Node
+  Key
+    (hspMonomial,PolynomialRing,mTableaux,mTableaux)
+    hspMonomial
+  Headline
+    Calculates the monomial given two mTableaux
+  Usage
+    m=hspMonomial(R,N,M)
+  Inputs
+    R:PolynomialRing
+      polynomial ring
+    N: mTableaux
+    M: mTableaux
+  Outputs
+    m:
+      a monomial in the polynomial ring R
+  Description
+    Text
+--hsp
+Node
+  Key
+    (hsp,PolynomialRing,mTableaux,mTableaux)
+    hsp
+  Headline
+    Calculate the higher Specht polynomials given two mTableaux
+  Usage
+    p=hsp(R,N,M)
+  Inputs
+    R: PolynomialRing
+    N: mTableaux
+    M: mTableaux
+  Outputs
+    p:
+  Description
+    Text
 ///
 end--
