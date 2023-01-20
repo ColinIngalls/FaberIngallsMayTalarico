@@ -148,6 +148,8 @@ Node
   Description
     Text
       WIP
+    Example
+      allPartitions(3,2)
 --listToPartition
 Node
   Key
@@ -166,8 +168,8 @@ Node
     :Partition
       A Partition object
   Description
-    --Example
-      --listToPartition({2,1})
+    Example
+      listToPartition {2,1}
 --toPartition
 Node
   Key
