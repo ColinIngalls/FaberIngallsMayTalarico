@@ -4,7 +4,10 @@
         Date => "May 25, 2022",
         Authors => {{Name => "Marco Talarico"}},
         Headline => "Higher Specht Polynomials",
+        CacheExampleOutput => true,
+        UseCachedExampleOutput => true,
         DebuggingMode => true,
+        AuxiliaryFiles => true,
         PackageExports => {
         "SpechtModule"
         }
@@ -605,5 +608,4 @@ HigherSpechtPolynomial^List := (h,par) -> (
     tabList := orderTuples(bTabList,tTabList);
     return (toList set tabList, apply(tabList, T -> hsp(h#ring,T_0,T_1,Class=>h#class)));
     )
-beginDocumentation()
-load "SpechtPolynomialsDoc.m2"
+load "./SpechtPolynomials/SpechtPolynomialsDoc.m2"

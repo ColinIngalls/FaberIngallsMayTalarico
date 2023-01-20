@@ -1,0 +1,13 @@
+-- -*- M2-comint -*- hash: -762143943
+
+i1 : parFromType {3,0,1}
+
+o1 = {{Partition{3}, Partition{}, Partition{1}}, {Partition{2, 1},
+     ------------------------------------------------------------------------
+     Partition{}, Partition{1}}, {Partition{1, 1, 1}, Partition{},
+     ------------------------------------------------------------------------
+     Partition{1}}}
+
+o1 : List
+
+i2 : 

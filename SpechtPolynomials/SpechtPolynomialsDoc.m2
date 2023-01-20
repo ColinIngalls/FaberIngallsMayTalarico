@@ -1,5 +1,4 @@
 beginDocumentation()
-
 doc ///
 --package
  Node
@@ -85,8 +84,8 @@ doc ///
    Description
      Text
        This function takes in a type of partition given as a list containing, possibly 0, integers and outputs a list of all lists of partitions of the given type.
-     --Example
-    --parFromType({3,2,2})
+     Example
+       parFromType {3,0,1} 
 --typeFromPar
  Node
    Key
@@ -126,7 +125,9 @@ doc ///
       A list of all types of possible $m$-partitions with $n$-cells.
   Description
     Text
-      Given two non negative integers $(m,n)$ this function returns a list of all possible types of $m$-partitions with $n$-cells.
+      Here we show an example.
+    Example
+      allTypes(3,2)
 --allPartitions
 Node
   Key
@@ -164,9 +165,9 @@ Node
   Outputs
     :Partition
       A Partition object
-  --Description
+  Description
     --Example
-    --  listToPartition({2,1})
+      --listToPartition({2,1})
 --toPartition
 Node
   Key
