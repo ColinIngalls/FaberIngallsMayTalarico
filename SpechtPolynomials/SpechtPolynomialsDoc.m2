@@ -44,10 +44,11 @@ doc ///
     HigherSpechtPolynomial
     Entries
     GroupType
+    conjugate
+    symbol ^
 --makePar
  Node
   Key
-    (makePar,auxOrdList)
     (makePar,List)
     makePar
   Headline
@@ -69,7 +70,6 @@ doc ///
  Node
    Key
      (parFromType,List)
-     (parFromType,auxOrdList)
      parFromType
    Headline
      Makes a list of all possible m-tuple partitions of given type.
@@ -90,7 +90,6 @@ doc ///
  Node
    Key
     (typeFromPar,List)
-    (typeFromPar,auxOrdList)
     typeFromPar
    Headline
     Recovers the type of the given list of partitions
@@ -155,7 +154,6 @@ Node
   Key
     listToPartition
     (listToPartition,List)
-    (listToPartition,auxOrdList)
   Headline
     A function to create a partition object from a list of non negative integers.
   Usage
@@ -176,7 +174,6 @@ Node
   Key
     toPartition
     (toPartition,List)
-    (toPartition,auxOrdList)
   Headline
     Creates a tuple of partition objects from a list of list of non negative integers.
   Usage
@@ -240,7 +237,6 @@ Node
 Node
   Key
     (mtab,List)
-    (mtab,auxOrdList)
     mtab
   Headline
     Constructor method for the mTableaux object
@@ -259,7 +255,6 @@ Node
   Key
     tabFromPar
     (tabFromPar,List)
-    (tabFromPar,auxOrdList)
   Headline
     Outputs mTableaux from a List of Partitions depending on some optional paramaters.
   Usage
@@ -480,7 +475,6 @@ Node
 Node
   Key
     (nstWord,List)
-    (nstWord,auxOrdList)
     nstWord
   Headline
     Does the thing it's meant to do, this one needs work...
@@ -501,7 +495,6 @@ Node
 Node
   Key
     (allWords,List)
-    (allWords,auxOrdList)
     allWords
   Headline
     Creates all the possible words of a mTableaux
@@ -522,7 +515,6 @@ Node
 Node
   Key
     (wordToFunc,List)
-    (wordToFunc,auxOrdList)
     wordToFunc
   Headline
     TEXT
@@ -591,6 +583,25 @@ Node
     Example
       QQ[x1,x2]
       antiSymmetrize x1
+--conjugate
+Node
+  Key
+    (conjugate,mTableaux)
+    conjugate
+  Headline
+    TEXT
+  Usage
+    l=conjuate(m)
+  Inputs
+    m:mTableaux
+  Outputs
+    l:mTableaux
+  Description
+    Text
+      returns the conjuate of an mTableaux
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      conjugate P
 --HSP
 Node
   Key
@@ -608,6 +619,7 @@ Node
 Node
   Key
     NST
+    [tabFromPar,NST]
   Headline
     An optional argument to force only natural standard tableau to be considered
   Description
@@ -617,6 +629,7 @@ Node
 Node
   Key
     Class
+    [hsp,Class]
   Headline
     An optional argument to create either higher Specht polynomials or modified higher Specht polynomials
   Description
@@ -626,6 +639,7 @@ Node
 Node
   Key
     GroupType
+    [hsp,GroupType]
   Headline
     An optional argument to create the higher Specht polynomials, for either the young subgroups of the symmetric groups or the groups G(m,1,n)
   Description
@@ -635,6 +649,7 @@ Node
 Node
   Key
     Entries
+    [tabFromPar,Entries]
   Headline
     An optional argument to create a tableau from a partition with inputted entries
   Description
@@ -669,7 +684,7 @@ Node
       P=makePar({{},{1},{},{1}})
       H^P
       H_P
---comparisons
+--comparisons&
 Node
   Key
     (symbol ?, Partition, Partition)
@@ -690,6 +705,17 @@ Node
       T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
       S=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 1
       T?S
+Node 
+  Key
+    (symbol ?, auxOrdList, auxOrdList)
+  Headline  
+    Compare two mTableaux with respect to the last letter order.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      S=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 1
+      T?S
+--operations on HSP
 Node
   Key
     (symbol ^, HigherSpechtPolynomial,mTableaux)
@@ -700,5 +726,35 @@ Node
       T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
       F=HSP(QQ[x1,x2,x3,x4],4,1)
       F^T
+Node
+  Key
+    (symbol _, HigherSpechtPolynomial,List)
+  Headline
+    Calculates something that I need to write abot.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      F=HSP(QQ[x1,x2,x3,x4],4,1)
+      F_T
+Node
+  Key
+    (symbol ^, HigherSpechtPolynomial,List)
+  Headline
+    Calculates something that I need to write abot.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      F=HSP(QQ[x1,x2,x3,x4],4,1)
+      F^T
+Node
+  Key
+    (net, HigherSpechtPolynomial)
+  Headline
+    Calculates something that I need to write abot.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      F=HSP(QQ[x1,x2,x3,x4],4,1)
+      net(F)
 
 ///

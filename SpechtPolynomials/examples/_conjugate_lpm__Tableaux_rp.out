@@ -1,0 +1,20 @@
+-- -*- M2-comint -*- hash: 1311108126
+ -- error: documentation already provided for mTableaux
+ -- /mnt/c/Users/User/Downloads/CanProject/FaberIngallsMayTalarico/./SpechtPolynomials/SpechtPolynomialsDoc.m2:759: ... here is the (end of the) previous documentation
+
+i1 : P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+
+o1 = {| 0 1 2 |, -, | 5 6 |}
+      | 3 4 |
+
+o1 : mTableaux
+
+i2 : conjugate P
+
+o2 = {| 0 3 |, -, | 5 |}
+      | 1 4 |     | 6 |
+      | 2 |
+
+o2 : mTableaux
+
+i3 : 

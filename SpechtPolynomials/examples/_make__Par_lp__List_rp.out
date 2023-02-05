@@ -1,0 +1,9 @@
+-- -*- M2-comint -*- hash: -501972898
+
+i1 : makePar {{3,2},{},{2}}
+
+o1 = {Partition{3, 2}, Partition{}, Partition{2}}
+
+o1 : List
+
+i2 : 

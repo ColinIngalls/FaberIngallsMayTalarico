@@ -519,7 +519,7 @@ definingPolynomial (Ring,ZZ) :=  (R,m) -> (
 
 -- Ordering From Yamada
 
-auxOrdList = new Type from List;
+auxOrdList = new Type of List;
 
 
 
@@ -560,7 +560,7 @@ orderTuples (List,List) := (tabs1,tabs2)-> (
 
 -- High Specht Functions --
 
-HigherSpechtPolynomial = new Type from MutableHashTable;
+HigherSpechtPolynomial = new Type of MutableHashTable;
 
 
 
