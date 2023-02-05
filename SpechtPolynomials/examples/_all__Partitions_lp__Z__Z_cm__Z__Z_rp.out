@@ -1,6 +1,6 @@
--- -*- M2-comint -*- hash: -454456186
+-- -*- M2-comint -*- hash: 196843834
 
-i1 : allPartitions(3,2)
+i1 : allPartitions (3,2)
 
 o1 = {{Partition{}, Partition{}, Partition{2}}, {Partition{}, Partition{},
      ------------------------------------------------------------------------

@@ -1,0 +1,9 @@
+-- -*- M2-comint -*- hash: -910691838
+
+i1 : toPartition {{3,2},{},{2}}
+
+o1 = {Partition{3, 2}, Partition{}, Partition{2}}
+
+o1 : List
+
+i2 : 

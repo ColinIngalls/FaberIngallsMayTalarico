@@ -1,0 +1,15 @@
+-- -*- M2-comint -*- hash: 1973196704
+
+i1 : P=makePar {{3,2},{},{2}}
+
+o1 = {Partition{3, 2}, Partition{}, Partition{2}}
+
+o1 : List
+
+i2 : typeFromPar P
+
+o2 = {5, 0, 2}
+
+o2 : List
+
+i3 : 

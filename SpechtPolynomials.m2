@@ -129,7 +129,7 @@ conjugate List := mPar -> (
 
 --  'm'-Tableaux
 
-mTableaux = new Type from List;
+mTableaux = new Type of List;
 
 mtab = method(TypicalValue => mTableaux);
 mtab List :=  tabs ->(
@@ -258,7 +258,7 @@ Partition ? Partition := (p,q) -> (
 	if #Q == 0 then return symbol >;
 	);
     m := null;
-    print "not";
+    --print "not"; Whats the not here for? scared me
     for i from 0 to n-1 do (
 	m = P_i - Q_i;
 	if m>0 then return symbol <;

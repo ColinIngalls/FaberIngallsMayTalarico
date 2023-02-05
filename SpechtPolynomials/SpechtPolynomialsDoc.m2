@@ -8,7 +8,7 @@ doc ///
       A package to compute higher Specht Polynomials for the complex reflection groups G(m,p,2)
   Description
    Text
-    {\em SpechtPolynomials} computes the .... add Description
+    {\em SpechtPolynomials} is a package where you can construct {{\tt $m$ }-tuples of young tableaux and use them to compute the (modified) higher Specht polynomials. This is meant to accompany the pre-print "What is the pape called again" found at "arXiv link".  
   Subnodes
     makePar
     parFromType
@@ -47,32 +47,32 @@ doc ///
 --makePar
  Node
   Key
-    makePar
     (makePar,auxOrdList)
     (makePar,List)
-    (makePar,mTableaux)
+    makePar
   Headline
-    Makes an object that contains a p-tuple of partitions
+    Makes an object that contains a m-tuple of partitions
   Usage
     par = makePar(P)
   Inputs
-    P:auxOrdList
-      A list of partitions, including the empty partition, given by lists of positive integers or an empty list.
+    P:
+      A list of partitions, given by lists of positive integers. The empty partition is given by an empty set.
   Outputs
     par:List
       List of partition objects.
   Description
     Text
-      This function takes in a list containing, possibly empty, list of positive integers and output list of Partition objects.
+      makePar takes in a list containing, possibly empty, list of positive integers and output list of Partition objects.
+    Example
+      makePar {{3,2},{},{2}}
 --parFromType
  Node
    Key
-      parFromType
      (parFromType,List)
      (parFromType,auxOrdList)
-     (parFromType,mTableaux)
+     parFromType
    Headline
-     Makes a list of all possible partitions of given type
+     Makes a list of all possible m-tuple partitions of given type.
    Usage
      L = parFromType(type)
    Inputs
@@ -83,16 +83,15 @@ doc ///
        List of lists of partitions of given type.
    Description
      Text
-       This function takes in a type of partition given as a list containing, possibly 0, integers and outputs a list of all lists of partitions of the given type.
+       An $m$-tuple $\lambda=(\lambda_1,...,\lambda_m)$ is of type $(n_1,...,n_m})$ where $\lambda_i$ is a partition of size $n_i$. This function takes in a type of partition given as a list containing, possibly 0, integers and outputs a list of all lists of partitions of the given type.
      Example
        parFromType {3,0,1} 
 --typeFromPar
  Node
    Key
-    typeFromPar
     (typeFromPar,List)
     (typeFromPar,auxOrdList)
-    (typeFromPar,mTableaux)
+    typeFromPar
    Headline
     Recovers the type of the given list of partitions
    Usage
@@ -105,7 +104,10 @@ doc ///
       The type of the given list of partition given as a list of integers.
    Description
      Text
-      Given a list $\lambda$ of partitions of type $(n_1,...n_m)$, typeFromPar($\lambda$) recovers the type $(n_1,...,n_m)$.
+      Given a list $\lambda$ of partitions or an mTableaux object, typeFromPar($\lambda$) recovers the type $(n_1,...,n_m)$.
+     Example
+      P=makePar {{3,2},{},{2}}
+      typeFromPar P
 --allTypes
  Node
   Key
@@ -131,8 +133,8 @@ doc ///
 --allPartitions
 Node
   Key
-    allPartitions
     (allPartitions,ZZ,ZZ)
+    allPartitions
   Headline
     Returns all partitions of a configuration
   Usage
@@ -144,19 +146,16 @@ Node
       The amount of total cells.
   Outputs
     :
-      A list of all partitions of a configuration
+      A list of all $m$ tuples of partitions with $n$ cells
   Description
-    Text
-      WIP
     Example
-      allPartitions(3,2)
+      allPartitions (3,2)
 --listToPartition
 Node
   Key
     listToPartition
     (listToPartition,List)
     (listToPartition,auxOrdList)
-    (listToPartition,mTableaux)
   Headline
     A function to create a partition object from a list of non negative integers.
   Usage
@@ -168,6 +167,8 @@ Node
     :Partition
       A Partition object
   Description
+    Text
+      listToPartition creates a Partiition object from the Macaulay2 package SpechtPolynomials
     Example
       listToPartition {2,1}
 --toPartition
@@ -176,7 +177,6 @@ Node
     toPartition
     (toPartition,List)
     (toPartition,auxOrdList)
-    (toPartition,mTableaux)
   Headline
     Creates a tuple of partition objects from a list of list of non negative integers.
   Usage
@@ -189,24 +189,26 @@ Node
       A list of partition objects
   Description
     Text
-      WIP
+      IS THERE SOME REDUNCENY HERE WITH MAKEPAR?
+    Example
+      toPartition {{3,2},{},{2}}
 --numChar
 Node
   Key
     (numChar,mTableaux)
     numChar
   Headline
-    Calculates the number of cells of a mTableaux object
+    Resturns the number of cells of a mTableaux object
   Usage
-    numChar(M)
+    numChar(P)
   Inputs
-    M:
+    P:
   Outputs
     n:ZZ
-
-
   Description
-    Text
+    Example 
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      numChar P
 --numTab
 Node
   Key
@@ -221,7 +223,9 @@ Node
   Outputs
     :ZZ
   Description
-    Text
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      numTab P
 --mTableaux Type
 Node
   Key
@@ -257,17 +261,27 @@ Node
     (tabFromPar,List)
     (tabFromPar,auxOrdList)
   Headline
-    Outputs all mTableaux from a List of Partitions.
+    Outputs mTableaux from a List of Partitions depending on some optional paramaters.
   Usage
-    tabFromPar(L)
+    tabFromPar(P, Entries=>A,NST=>B)
   Inputs
-    L: List
+    P: List
       of tableau objects
+    A:List  
+      of integers that are the entries of the tableaux
+    B:Boolean
+      which defaults to false and should be changed to true if only NST are desired
+      
   Outputs
     :List
-      of mTableaux
+      of mTableaux, which depends on the optional paramaters given.
   Description
-    Text
+    Text 
+    Example
+      P=makePar {{3,2},{},{2}}
+      tabFromPar(P)
+      tabFromPar(P,NST=>true)
+      tabFromPar(P,Entries=>{{0,1,2,3,4},{},{5,6}})
 --shift
 Node
   Key
@@ -282,25 +296,29 @@ Node
   Outputs
     :List
   Description
-    Text
+    Example 
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      shift P
 --word
 Node
   Key
     (word,mTableaux)
     word
   Headline
-    outputs the word of an mTableaux
+    Outputs the word of an mTableaux
   Usage
     word(M)
   Inputs
     M: mTableaux
   Outputs
     :List
-      of mTablea
-
-      ux
+      of mTableaux
   Description
-    Text
+    Text 
+      The word of a mTableaux object is defined [REF,Yamada] as ...
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      word P
 --charge
 Node
   Key
@@ -316,7 +334,11 @@ Node
     :List
 
   Description
-    Text
+    Text 
+      The charge of a mTableaux object is defined [REF,Yamada] as ...
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      charge P
 --fillUp
 Node
   Key
@@ -333,8 +355,10 @@ Node
     a:
   Description
     Text
-      used to create permutations.
--- rowPermutations
+      This function is used to create the row and column statilisers needed in the methods [REF].
+    Example
+      fillUp ({2,3},4)
+--rowPermutations
 Node
   Key
     (rowPermutations,mTableaux)
@@ -349,7 +373,9 @@ Node
     :List
      of permutations
   Description
-    Text
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      rowPermutations P
 --colPermutations
 Node
   Key
@@ -365,7 +391,9 @@ Node
     :List
      of permutations
   Description
-    Text
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      colPermutations P
 --hspMonomial
 Node
   Key
@@ -384,7 +412,9 @@ Node
     m:
       a monomial in the polynomial ring R
   Description
-    Text
+    Example 
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      hspMonomial(QQ[x1,x2,x3,x4,x5,x6,x7],P,P)
 --hsp
 Node
   Key
@@ -401,7 +431,9 @@ Node
   Outputs
     p:
   Description
-    Text
+    Example
+      P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      hsp(QQ[x1,x2,x3,x4,x5,x6,x7],P,P)
 --definingPolynomial
 Node
   Key
@@ -410,7 +442,7 @@ Node
   Headline
     Outputs the defining polynomial
   Usage
-    p=hsp(R,m)
+    p=definingPolynomial(R,m)
   Inputs
     R: Ring
     m: ZZ
@@ -420,25 +452,30 @@ Node
       Element of the polynomial ring.
   Description
     Text
+      What is the definingPolynomial?? is it 
+    Example
+      definingPolynomial(QQ[x1,x2,x3],3)
 --orderTuples
 Node
   Key
     (orderTuples,List,List)
     orderTuples
   Headline
-    Orders two tuples, according to the LL Ordering
+    
   Usage
     L=orderTuples(M,N)
   Inputs
     M: List
     N: List
   Outputs
-    L: List
-      of the two mTableaux in increasing order according to the LL ordering.
+    L: List 
   Description
     Text
-      Orders two tuples, according to the LL Ordering ... Add Description of LL here
-
+    Example
+      P1=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      P2=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 1
+      P3=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 2
+      orderTuples({P1},{P2,P3})
 --nstWord
 Node
   Key
@@ -448,16 +485,18 @@ Node
   Headline
     Does the thing it's meant to do, this one needs work...
   Usage
-    L=orderTuples(M)
+    L=nstWord(M)
   Inputs
     M: List
       of integers
   Outputs
     L: List
-      list of subsets telling you what numbers can be in which position of an mTableaux of shape of M, to create a valid Natural Standard Tableau (NST).
+      list of subsets telling you what numbers can be in which position of an mTableaux of type M, to create a valid Natural Standard Tableau (NST).
   Description
     Text
       Blah Blah insert words here.
+    Example
+      nstWord {5,0,2}
 --allWords
 Node
   Key
@@ -477,6 +516,8 @@ Node
   Description
     Text
       Creates a list of all possible entries that can appear in the different positions of an mTableaux.
+    Example
+      allWords {5,0,2}
 --wordToFunc
 Node
   Key
@@ -489,7 +530,6 @@ Node
     L=wordToFunc(M)
   Inputs
     M:List
-      TEXT
   Outputs
     L:
   Description
@@ -511,7 +551,10 @@ Node
   Description
     Text
       Used to create a auxOrdList object.
-      --auxordtuple
+    Example
+      P1=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+      P2=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 1
+      auxordtuple(P1,P2)
 --youngSymmetrizer
 Node
   Key
@@ -526,8 +569,9 @@ Node
   Outputs
     L:
   Description
-    Text
-      Used to create a auxOrdList object.
+    Example 
+       P=(tabFromPar(makePar{{3,2},{},{2}},Entries=>{{0,1,2,3,4},{},{5,6}})) # 0
+       youngSymmetrizer P
 --antiSymmetrize
 Node
   Key
@@ -544,8 +588,10 @@ Node
   Description
     Text
       takes a ring element and antiSymmetrizes it ""????!?""
+    Example
+      QQ[x1,x2]
+      antiSymmetrize x1
 --HSP
-
 Node
   Key
     (HSP,PolynomialRing,ZZ,ZZ)
@@ -554,6 +600,9 @@ Node
     The function that creates the hgiher SpechtPolynomials
   Description
     Text
+    Example
+      HSP(QQ[x1,x2,x3],4,1)
+      HSP(QQ[x1,x2,x3],4,2)
 --Symbols
 --NST
 Node
@@ -598,16 +647,58 @@ Node
     (auxOrdList)
     auxOrdList
   Headline
-    The class of lists of mTableaux, which has an ordering
+    The class of lists of mTableaux, which has an ordering that is defined by the LL ordering.
   Description
     Text
 --HigherSpechtPolynomial
 Node
   Key
-    (HigherSpechtPolynomial)
     HigherSpechtPolynomial
+    (symbol _, HigherSpechtPolynomial,mTableaux)
   Headline
     The class of HigherSpechtPolynomials
   Description
     Text
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      S=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 1
+      F=HSP(QQ[x1,x2,x3,x4],4,1)
+      F^T
+      F_S
+      H=HSP(QQ[x1,x2],3,2)
+      P=makePar({{},{1},{},{1}})
+      H^P
+      H_P
+--comparisons
+Node
+  Key
+    (symbol ?, Partition, Partition)
+  Headline
+    Compare two partitions with respect to the last letter order.
+  Description
+    Example
+      P1=makePar {{3,2},{},{1},{}}
+      P2=makePar {{3,1,1},{},{},{}}
+      P1?P2
+Node
+  Key
+    (symbol ?, mTableaux, mTableaux)
+  Headline  
+    Compare two mTableaux with respect to the last letter order.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      S=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 1
+      T?S
+Node
+  Key
+    (symbol ^, HigherSpechtPolynomial,mTableaux)
+  Headline
+    Calculates something that I need to write abot.
+  Description
+    Example
+      T=(tabFromPar(makePar{{2,1},{},{1},{}},NST=>true,Entries=>{{0,1,2},{},{3},{}})) # 0
+      F=HSP(QQ[x1,x2,x3,x4],4,1)
+      F^T
+
 ///

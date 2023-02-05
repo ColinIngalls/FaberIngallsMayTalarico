@@ -1,0 +1,21 @@
+-- -*- M2-comint -*- hash: 1277148466
+
+i1 : P1=makePar {{3,2},{},{1},{}}
+
+o1 = {Partition{3, 2}, Partition{}, Partition{1}, Partition{}}
+
+o1 : List
+
+i2 : P2=makePar {{3,1,1},{},{},{}}
+
+o2 = {Partition{3, 1, 1}, Partition{}, Partition{}, Partition{}}
+
+o2 : List
+
+i3 : P1?P2
+
+o3 = <
+
+o3 : Keyword
+
+i4 : 

@@ -1,0 +1,10 @@
+-- -*- M2-comint -*- hash: 500708246
+
+i1 : definingPolynomial(QQ[x1,x2,x3],3)
+
+         7  4       4  7       7     4        7  4     4     7        4  7
+o1 = - x1 x2 x3 + x1 x2 x3 + x1 x2*x3  - x1*x2 x3  - x1 x2*x3  + x1*x2 x3
+
+o1 : QQ[x1, x2, x3]
+
+i2 : 

@@ -1,0 +1,15 @@
+-- -*- M2-comint -*- hash: 955669835
+
+i1 : QQ[x1,x2]
+
+o1 = QQ[x1, x2]
+
+o1 : PolynomialRing
+
+i2 : antiSymmetrize x1
+
+o2 = x1 - x2
+
+o2 : QQ[x1, x2]
+
+i3 : 
