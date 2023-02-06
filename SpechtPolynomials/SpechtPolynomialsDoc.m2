@@ -1,51 +1,14 @@
 beginDocumentation()
-doc ///
+multidoc ///
 --package
  Node
   Key
    SpechtPolynomials
   Headline
-      A package to compute higher Specht Polynomials for the complex reflection groups G(m,p,2)
+      A package to compute higher Specht Polynomials for the complex reflection groups $$G(m,p,2)$$
   Description
    Text
-    {\em SpechtPolynomials} is a package where you can construct {{\tt $m$ }-tuples of young tableaux and use them to compute the (modified) higher Specht polynomials. This is meant to accompany the pre-print "What is the pape called again" found at "arXiv link".  
-  Subnodes
-    makePar
-    parFromType
-    typeFromPar
-    allTypes
-    allPartitions
-    listToPartition
-    toPartition
-    numChar
-    numTab
-    mTableaux
-    mtab
-    tabFromPar
-    shift
-    word
-    charge
-    fillUp
-    rowPermutations
-    colPermutations
-    hspMonomial
-    hsp
-    definingPolynomial
-    orderTuples
-    nstWord
-    wordToFunc
-    NST
-    allWords
-    auxOrdList
-    auxordtuple
-    youngSymmetrizer
-    antiSymmetrize
-    Class
-    HigherSpechtPolynomial
-    Entries
-    GroupType
-    conjugate
-    symbol ^
+    {\em SpechtPolynomials} is a {\bf package} where {$you$} can construct $m$-tuples of young tableaux and use them to compute the (modified) higher Specht polynomials. This is meant to accompany the pre-print "Matrix factorizations of the discriminant of $S_n$" found at <a href="https://arxiv.org/abs/2209.03375">arXiv:2209.03375</a> @ html("jhg") @   \\ZZ $\\ZZ$ $$\\ZZ$$ <
 --makePar
  Node
   Key
